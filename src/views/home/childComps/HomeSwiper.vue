@@ -36,10 +36,10 @@
         this.$refs.swiper && this.$refs.swiper.stopTimer()
       },
 	    imageLoaded() {
-      	if (!this.isLoaded) {
-      		this.$emit('swiperLoaded')
-          this.isLoaded = true
-        }
+				if (!this.isLoaded) {
+					this.$emit('swiperLoaded')
+					this.isLoaded = true
+				}
 	    }
     }
   }
