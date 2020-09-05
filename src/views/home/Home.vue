@@ -38,7 +38,6 @@
 	import TabControl from "components/content/tabControl/TabControl"
 	import GoodsList from "components/content/goods/GoodsList"
 	import Scroll from "components/common/scroll/Scroll"
-	import BackTop from "components/content/backTop/BackTop"
 	
 	
 	import {
@@ -46,6 +45,7 @@
 		getHomeGoods
 		} from "network/home"
 	import {debounce} from "common/utils"
+	import {itemListenerMixin,backTopMixin} from "common/mixin"
 	
 	
 	export default {
@@ -58,7 +58,6 @@
 			TabControl,
 			GoodsList,
 			Scroll,
-			BackTop
 		},
 		data(){
 			return {
@@ -71,7 +70,6 @@
 					'sell' : {page: 0, list: []}
 				},
 				currentType: 'pop',
-				isShowBackTop : false,
 				tabOffsetTop: 0,
 				isTabFixed: false,
 				saveY: 0
@@ -92,15 +90,7 @@
 			this.getHomeGoods('sell');
 			
 		},
-		mounted() {
-			const refresh = debounce(this.$refs.scroll.refresh,100)
-			
-			// 监听事件
-			this.$bus.$on('itemImageLoad',()=>{
-				refresh()
-			})
-			
-		},
+		mixins:[itemListenerMixin,backTopMixin],
 		
 		activated() {
 			this.$refs.scroll.scrollTo(0,this.saveY,0)
@@ -131,9 +121,6 @@
 				this.$refs.tabControl2.currentIndex = index
 			},
 			
-			backClick() {
-				this.$refs.scroll.scrollTo(0,0)
-			},
 			
 			contentScroll(position) {
 				// 判断backtop是否显示

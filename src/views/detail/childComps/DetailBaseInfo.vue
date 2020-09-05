@@ -97,7 +97,7 @@
   }
 
   .info-service-item span {
-    font-size: 13px;
+    font-size: 12px;
     color: #333;
   }
 </style>
